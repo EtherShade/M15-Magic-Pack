@@ -151,6 +151,12 @@ symbol:
 	enabled: {use_large_v_mana()}
 ####### Miscellaneous Symbols
 symbol:
+	code: O
+	image: mana_o.png
+symbol:
+	code: P
+	image: mana_p.png
+symbol:
 	code: TK
 	image: ticket.png
 	image font size: 178

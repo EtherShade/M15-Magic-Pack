@@ -175,6 +175,14 @@ symbol:
 	image: {"/magic-mainframe-extras.mse-include/" + v_mana_loc() + "small/" + v_mana_name() + ".png"}
 	image font size: 120
 	enabled: {use_small_v_mana()}
+
+############ Ether Symbols
+symbol:
+	code: O
+	image: mana_o.png
+symbol:
+	code: P
+	image: mana_p.png
 ###################################################################################### Saga Chapters
 symbol:
 	code: r1

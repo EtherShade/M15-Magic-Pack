@@ -29,7 +29,7 @@ keyword mode:
 
 keyword parameter type:
 	name: mana
-	match: [HSVCTQXYZI0-9WUBRG/|]+
+	match: [HSVCTQXYZI0-9WUBRGOP/|]+
 	refer script:
 		name: normal
 		description: No changes made
@@ -48,7 +48,7 @@ keyword parameter type:
 # By pichoro and bunnierein
 keyword parameter type:
 	name: cost
-	match: [ ][HSVECTQXYZI0-9WUBRG/|]*|[-—][^(\r\n]*
+	match: [ ][HSVECTQXYZI0-9WUBRGOP/|]*|[-—][^(\r\n]*
 	separator before is: [ —-]
 	separator after is: [.]
 	optional: false
@@ -1112,7 +1112,7 @@ keyword:
 keyword:
 	keyword: Investigate
 	match: Investigate
-	mode: action
+	mode: core
 	reminder: {handle_action_rt(to:"investigate", "Create")} a Clue token. It's an artifact with "<sym>2</sym>, Sacrifice this artifact: Draw a card."
 keyword:
 	keyword: Skulk
@@ -1345,7 +1345,7 @@ keyword:
 keyword:
 	keyword: Surveil
 	match: Surveil <atom-param>number</atom-param>
-	mode: action
+	mode: core
 	reminder:
 		{handle_action_rt(to:"surveil {param1}", "Look")} at the top {
 		 if param1.value=="1" then "card of your library. You may put it into your graveyard."
@@ -1387,7 +1387,7 @@ keyword:
 	keyword: Amass
 	match: Amass <atom-param>name</atom-param> <atom-param>number</atom-param>
 	mode: action
-	reminder: {handle_action_rt(to:"amass {param1} {param2}", "Put")} {english_number_a(param2)} +1/+1 counter(s) on an Army you control. It's also a {if param1.value == "Zombies" then "Zombie" else english_singular(param1)}. If you don't control an Army, create a 0/0 black {if param1.value == "Zombies" then "Zombie" else english_singular(param1)} Army creature token first.
+	reminder: {handle_action_rt(to:"amass {param1} {param2}", "Put")} {english_number_a(param2)} +1/+1 counter(s) on an Army you control. It's also {if param1.value == "Elves" then "an Elf" else if param1.value == "Faeries" then "a Faerie" else if param1.value == "Wolves" then "a Wolf" else if param1.value == "Werewolves" then "a Werewolf" else "a "+english_singular(param1)}. If you don't control an Army, create a 0/0 black {if param1.value == "Elves" then "Elf" else if param1.value == "Faeries" then "a Faerie" else if param1.value == "Wolves" then "a Wolf" else if param1.value == "Werewolves" then "Werewolf" else english_singular(param1)} Army creature token first.
 #Throne of Eldraine
 keyword:
 	keyword: Adamant
@@ -1582,7 +1582,7 @@ keyword:
 	keyword: Connives N
 	match: connives <atom-param>number</atom-param>
 	mode: action
-	reminder: {handle_action_rt(to:"have a creature connive", "Draw")} {english_number_a(param1)} card(s), then discard {english_number_a(param1)} card(s). Put a +1/+1 counter on {this_or_that("creature")} for each nonland card discarded this way.
+	reminder: {handle_action_rt(to:"have a creature connive {param1}", "Draw")} {english_number_a(param1)} card(s), then discard {english_number_a(param1)} card(s). Put a +1/+1 counter on {this_or_that("creature")} for each nonland card discarded this way.
 keyword:
 	keyword: Blitz
 	match: Blitz <atom-param>cost</atom-param>
@@ -1977,3 +1977,44 @@ keyword:
 	match: Exhaust — <atom-param>cost</atom-param>: <atom-param>action</atom-param>
 	mode: expert
 	reminder: Activate each exhaust ability only once.
+#Tarkir: Dragonstorm
+keyword:
+	keyword: Endure
+	match: Endure <atom-param>number</atom-param>
+	mode: action
+	reminder: {handle_action_rt(to:"have a creature endure", "Put")} {english_number_a(param1)} +1/+1 counter(s) on it or create a {param1}/{param1} white Spirit creature token.
+keyword:
+	keyword: Endures
+	match: endures <atom-param>number</atom-param>
+	mode: action
+	reminder: {handle_action_rt(to:"have a creature endure", "Put")} {english_number_a(param1)} +1/+1 counter(s) on it or create a {param1}/{param1} white Spirit creature token.
+keyword:
+	keyword: Flurry
+	match: Flurry
+	mode: pseudo
+	rules: Flurry — Whenever you cast your second spell each turn, [effect].
+keyword:
+	keyword: Renew
+	match: Renew
+	mode: pseudo
+	rules: Renew — <atom-param>cost</atom-param>, Exile this card from your graveyard: [effect]. Activate only as a sorcery.
+keyword:
+	keyword: Mobilize
+	match: Mobilize <atom-param>number</atom-param>
+	mode: expert
+	reminder: Whenever {this_or_that("creature")} attacks, create {english_number_a(param1)} tapped and attacking 1/1 red Warrior creature token(s). Sacrifice { if param1.value=="1" then "it" else "them" } at the beginning of the next end step.
+keyword:
+	keyword: Harmonize
+	match: Harmonize <atom-param>cost</atom-param>
+	mode: expert
+	reminder: You may cast this card from your graveyard for its harmonize cost. You may tap a creature you control to reduce that cost by [X], where X is its power. Then exile this spell.
+keyword:
+	keyword: Behold
+	match: Behold a <atom-param>one_word</atom-param>
+	mode: action
+	reminder: {handle_action_rt(to:"behold a {param1}", "Choose")} a {param1} you control or reveal a {param1} card from your hand.
+keyword:
+	keyword: Behold
+	match: Behold an <atom-param>one_word</atom-param>
+	mode: action
+	reminder: {handle_action_rt(to:"behold an {param1}", "Choose")} a {param1} you control or reveal a {param1} card from your hand.
